@@ -1,0 +1,6 @@
+name: UberHardcore
+main: ${project.groupId}.${project.parent.artifactId}.Entry
+version: ${project.version}
+author: ghowden/Eluinhost
+load: STARTUP
+database: false
