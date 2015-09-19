@@ -1,6 +1,6 @@
 package gg.uhc.uberhardcore.nms.v1_8_R1.mobs.creeper;
 
-import gg.uhc.uberhardcore.PluginDependantListener;
+import gg.uhc.uberhardcore.api.PluginDependantListener;
 import org.bukkit.entity.Creeper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;

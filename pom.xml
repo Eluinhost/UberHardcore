@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>PARENT</version>
 
-    <name>UberHardcore</name>
+    <name>UberHardcore Parent</name>
 
     <modules>
         <module>plugin</module>
