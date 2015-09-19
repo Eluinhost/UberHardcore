@@ -7,9 +7,16 @@ Experimental bukkit mod/plugin, modifies Minecraft.
 
 Compatability: Java 7+, Bukkit 1.8 (created against 1.8, 1.8.3 and 1.8.8)
 
-**YOU SHOULD ALWAYS RESTART YOUR SERVER (NO /RELOAD) WITH THIS PLUGIN INSTALLED OTHERWISE THINGS MAY NOT WORK AS EXPECTED**
+# Notice
 
-Changes:
+Whenever the plugin is loaded/unloaded it will remove all entities in the affected list below. If you do /reload all
+the affected entities will be killed and will respawn under regular rules. This also applies on server start/stop. This
+is to ensure that no invalid/invisible custom mobs are walking around causing havoc.
+
+AFFECTED: Zombie, Skeleton, Spider, Sheep, Chicken  
+UNAFFECTED: Rabbit, Creeper
+
+# Changes:
 
 ### Zombie
 
