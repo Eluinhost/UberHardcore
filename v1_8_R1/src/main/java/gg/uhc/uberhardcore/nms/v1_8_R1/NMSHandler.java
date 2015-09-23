@@ -1,7 +1,7 @@
 package gg.uhc.uberhardcore.nms.v1_8_R1;
 
 import com.google.common.collect.ImmutableList;
-import gg.uhc.uberhardcore.api.MobOverride;
+import gg.uhc.uberhardcore.api.*;
 import gg.uhc.uberhardcore.nms.v1_8_R1.mobs.chicken.CustomChicken;
 import gg.uhc.uberhardcore.nms.v1_8_R1.mobs.chicken.ThrownEggHandler;
 import gg.uhc.uberhardcore.nms.v1_8_R1.mobs.creeper.CreeperDeathHandler;
@@ -22,12 +22,14 @@ public class NMSHandler extends gg.uhc.uberhardcore.api.NMSHandler {
     protected final EntityChecker entityChecker;
     protected final EntityClassReplacer entityClassReplacer;
     protected final List<MobOverride> mobOverrides;
+    protected final NewSpawnsModifier newSpawnsModifier;
 
     public NMSHandler(Plugin plugin) {
         super(plugin);
 
         entityChecker = new EntityChecker();
         entityClassReplacer = new EntityClassReplacer(plugin.getLogger());
+        newSpawnsModifier = new NewSpawnsModifier();
 
         mobOverrides = ImmutableList.of(
                 new MobOverride(EntityChicken.class, CustomChicken.class, new ThrownEggHandler()),
@@ -53,5 +55,10 @@ public class NMSHandler extends gg.uhc.uberhardcore.api.NMSHandler {
     @Override
     public List<MobOverride> getMobOverrides() {
         return mobOverrides;
+    }
+
+    @Override
+    public gg.uhc.uberhardcore.api.NewSpawnsModifier getNewSpawnsModifier() {
+        return null;
     }
 }

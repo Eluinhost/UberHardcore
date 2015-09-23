@@ -1,9 +1,6 @@
 package gg.uhc.uberhardcore;
 
-import gg.uhc.uberhardcore.api.EntityChecker;
-import gg.uhc.uberhardcore.api.EntityClassReplacer;
-import gg.uhc.uberhardcore.api.MobOverride;
-import gg.uhc.uberhardcore.api.PluginDependantListener;
+import gg.uhc.uberhardcore.api.*;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.Listener;
@@ -16,13 +13,15 @@ public class MobRegistry {
     protected final Plugin plugin;
     protected final EntityClassReplacer replacer;
     protected final EntityChecker entityChecker;
+    protected final NewSpawnsModifier newSpawnsModifier;
     protected final EntityKiller entityKiller;
     protected final List<MobOverride> overrides;
 
-    public MobRegistry(Plugin plugin, EntityClassReplacer replacer, EntityChecker entityChecker, EntityKiller entityKiller, List<MobOverride> overrides) {
+    public MobRegistry(Plugin plugin, EntityClassReplacer replacer, EntityChecker entityChecker, NewSpawnsModifier newSpawnsModifier, EntityKiller entityKiller, List<MobOverride> overrides) {
         this.plugin = plugin;
         this.replacer = replacer;
         this.entityChecker = entityChecker;
+        this.newSpawnsModifier = newSpawnsModifier;
         this.entityKiller = entityKiller;
         this.overrides = overrides;
     }
@@ -54,12 +53,16 @@ public class MobRegistry {
                 entityKiller.killEntitiesInWorld(override.getNmsClass(), world);
             }
         }
+
+        newSpawnsModifier.setup();
     }
 
     /**
      * Should only be called in onDisable, does not cleanup listeners
      */
     public void deregisterEntities() {
+        newSpawnsModifier.desetup();
+
         for (MobOverride override : overrides) {
             if (override.isRunningClassReplace()) {
                 // reverse the replace

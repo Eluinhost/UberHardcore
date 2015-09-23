@@ -1,9 +1,6 @@
 package gg.uhc.uberhardcore;
 
-import gg.uhc.uberhardcore.api.EntityChecker;
-import gg.uhc.uberhardcore.api.EntityClassReplacer;
-import gg.uhc.uberhardcore.api.MobOverride;
-import gg.uhc.uberhardcore.api.NMSHandler;
+import gg.uhc.uberhardcore.api.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -24,6 +21,7 @@ public class Entry extends JavaPlugin {
 
         EntityClassReplacer replacer = handler.getEntityClassReplacer();
         EntityChecker checker = handler.getEntityChecker();
+        NewSpawnsModifier newSpawnsModifier = handler.getNewSpawnsModifier();
         EntityKiller killer = new EntityKiller(checker);
         List<MobOverride> overrides = handler.getMobOverrides();
 
@@ -39,6 +37,7 @@ public class Entry extends JavaPlugin {
                 this,
                 replacer,
                 checker,
+                newSpawnsModifier,
                 killer,
                 overrides
         );

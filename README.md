@@ -14,7 +14,7 @@ the affected entities will be killed and will respawn under regular rules. This 
 is to ensure that no invalid/invisible custom mobs are walking around causing havoc.
 
 AFFECTED: Zombie, Skeleton, Spider, Sheep, Chicken  
-UNAFFECTED: Rabbit, Creeper
+UNAFFECTED: Rabbit, Creeper, Ghast
 
 # Changes:
 
@@ -59,6 +59,10 @@ UNAFFECTED: Rabbit, Creeper
 ### Rabbit
 
 - 1% chance to spawn as a killer rabbit
+
+### Ghast
+
+- Now can spawn in ALL biomes
 
 ## Known problems
 

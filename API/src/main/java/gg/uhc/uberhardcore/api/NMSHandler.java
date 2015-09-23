@@ -31,4 +31,6 @@ public abstract class NMSHandler {
      * @return NMS specific MobOverride list
      */
     public abstract List<MobOverride> getMobOverrides();
+
+    public abstract NewSpawnsModifier getNewSpawnsModifier();
 }
