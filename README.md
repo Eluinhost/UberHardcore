@@ -54,7 +54,7 @@ UNAFFECTED: Rabbit, Creeper, Ghast
 
 ### Creeper
 
-- Explodes a short time after it's death (even if it died by exploding, gives particle effect warning)
+- Explodes a short time after it's death (gives particle effect warning) does not trigger if the creeper dies by exploding
 
 ### Rabbit
 
