@@ -63,3 +63,7 @@ UNAFFECTED: Rabbit, Creeper, Ghast
 ### Ghast
 
 - Now can spawn in ALL biomes
+
+# Known problems
+
+- Zombie reinforcement rates may be slightly lower than regular
