@@ -1,9 +1,12 @@
 package gg.uhc.uberhardcore.nms.v1_8_R2.mobs.zombie;
 
 import gg.uhc.uberhardcore.nms.v1_8_R2.AIUtil;
+import gg.uhc.uberhardcore.nms.v1_8_R2.mobs.chicken.CustomChicken;
 import net.minecraft.server.v1_8_R2.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+
+import java.util.List;
 
 public class CustomZombie extends EntityZombie {
     public CustomZombie(World world) {
@@ -102,5 +105,36 @@ public class CustomZombie extends EntityZombie {
         } else {
             return false;
         }
+    }
+
+
+    // give chance for chicken jockey with correct chicken if zombie is a baby
+    // taken from EntityZombie and changed to CustomChicken
+    @Override
+    public GroupDataEntity prepare(DifficultyDamageScaler difficultydamagescaler, GroupDataEntity groupdataentity) {
+        GroupDataEntity object = super.prepare(difficultydamagescaler, groupdataentity);
+
+        if (this.isBaby()) {
+            if ((double) this.world.random.nextFloat() < 0.05D) {
+                List entitychicken1 = this.world.a(CustomChicken.class, this.getBoundingBox().grow(5.0D, 3.0D, 5.0D), IEntitySelector.b);
+                if (!entitychicken1.isEmpty()) {
+                    CustomChicken entitychicken = (CustomChicken) entitychicken1.get(0);
+                    entitychicken.l(true);
+                    this.mount(entitychicken);
+                }
+            } else if ((double) this.world.random.nextFloat() < 0.05D) {
+                CustomChicken entitychicken11 = new CustomChicken(this.world);
+                entitychicken11.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, 0.0F);
+                entitychicken11.prepare(difficultydamagescaler, (GroupDataEntity) null);
+                entitychicken11.l(true);
+                this.world.addEntity(entitychicken11, CreatureSpawnEvent.SpawnReason.MOUNT);
+                this.mount(entitychicken11);
+            }
+        }
+
+        // snip the reset of the method to avoid it running twice, this method is just here to make sure there is a chance
+        // for zombie jockeys to appear
+
+        return object;
     }
 }

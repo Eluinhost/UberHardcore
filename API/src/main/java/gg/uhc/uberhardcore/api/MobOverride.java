@@ -1,16 +1,20 @@
 package gg.uhc.uberhardcore.api;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class MobOverride {
 
     protected final Class nmsClass;
     protected final Class overrideClass;
     protected final List<Listener> listeners;
+    protected Set<CreatureSpawnEvent.SpawnReason> reasonsNotToLog = ImmutableSet.of();
 
     /**
      * Create new override. If a NMS class is provided an override class must also be provided. An override class must
@@ -84,5 +88,19 @@ public class MobOverride {
      */
     public boolean isRunningClassReplace() {
         return nmsClass != null;
+    }
+
+    /**
+     * @return spawn reasons not to log if they have invalid spawns, cancel silently.
+     */
+    public Set<CreatureSpawnEvent.SpawnReason> getReasonsNotToLog() {
+        return reasonsNotToLog;
+    }
+
+    /**
+     * @param reasons spawn reasons not to log if they have invalid spawns, cancel silently.
+     */
+    public void setReasonsNotToLog(CreatureSpawnEvent.SpawnReason... reasons) {
+        this.reasonsNotToLog = ImmutableSet.copyOf(reasons);
     }
 }

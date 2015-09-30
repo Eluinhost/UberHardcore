@@ -13,6 +13,7 @@ import gg.uhc.uberhardcore.nms.v1_8_R2.mobs.spider.SpiderDeathHandler;
 import gg.uhc.uberhardcore.nms.v1_8_R2.mobs.zombie.CustomZombie;
 import gg.uhc.uberhardcore.nms.v1_8_R2.mobs.zombie.ZombieSeigeHandler;
 import net.minecraft.server.v1_8_R2.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -31,12 +32,18 @@ public class NMSHandler extends gg.uhc.uberhardcore.api.NMSHandler {
         entityClassReplacer = new EntityClassReplacer(plugin.getLogger());
         newSpawnsModifier = new NewSpawnsModifier();
 
+        MobOverride chicken = new MobOverride(EntityChicken.class, CustomChicken.class, new ThrownEggHandler());
+        chicken.setReasonsNotToLog(CreatureSpawnEvent.SpawnReason.MOUNT);
+
+        MobOverride skeleton = new MobOverride(EntitySkeleton.class, CustomSkeleton.class);
+        skeleton.setReasonsNotToLog(CreatureSpawnEvent.SpawnReason.JOCKEY);
+
         mobOverrides = ImmutableList.of(
-                new MobOverride(EntityChicken.class, CustomChicken.class, new ThrownEggHandler()),
+                chicken,
                 new MobOverride(new CreeperDeathHandler()),
                 new MobOverride(new RabbitSpawnHandler()),
                 new MobOverride(EntitySheep.class, CustomSheep.class),
-                new MobOverride(EntitySkeleton.class, CustomSkeleton.class),
+                skeleton,
                 new MobOverride(EntitySpider.class, CustomSpider.class, new SpiderDeathHandler()),
                 new MobOverride(EntityZombie.class, CustomZombie.class, new ZombieSeigeHandler())
         );

@@ -63,8 +63,3 @@ UNAFFECTED: Rabbit, Creeper, Ghast
 ### Ghast
 
 - Now can spawn in ALL biomes
-
-## Known problems
-
-Zombies riding chickens *shouldnt* work, as well as Skeleton jockeys. Any invalid non-custom mobs spawned are cancelled
-meaning there will be no invalid invisible mobs walking around.

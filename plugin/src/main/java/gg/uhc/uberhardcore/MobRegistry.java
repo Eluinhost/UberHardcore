@@ -36,7 +36,7 @@ public class MobRegistry {
                 replacer.replaceClasses(override.getNmsClass(), override.getOverrideClass());
 
                 // add a listener for original class
-                Bukkit.getPluginManager().registerEvents(new InvalidSpawnListener(plugin, entityChecker, override.getNmsClass()), plugin);
+                Bukkit.getPluginManager().registerEvents(new InvalidSpawnListener(plugin, entityChecker, override.getNmsClass(), override.getReasonsNotToLog()), plugin);
             }
 
             // register events for the override
