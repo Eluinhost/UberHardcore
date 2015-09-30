@@ -52,6 +52,7 @@ public class NMSHandler extends gg.uhc.uberhardcore.api.NMSHandler {
                 new MobOverride()
                         .withOverridingClasses(EntityZombie.class, CustomZombie.class)
                         .withListeners(new ZombieSeigeHandler())
+                        .withSupressedInvalidSpawnReasons(CreatureSpawnEvent.SpawnReason.REINFORCEMENTS)
         );
     }
 
