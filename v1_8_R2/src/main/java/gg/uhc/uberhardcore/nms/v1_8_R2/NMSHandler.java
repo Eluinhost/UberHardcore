@@ -32,20 +32,26 @@ public class NMSHandler extends gg.uhc.uberhardcore.api.NMSHandler {
         entityClassReplacer = new EntityClassReplacer(plugin.getLogger());
         newSpawnsModifier = new NewSpawnsModifier();
 
-        MobOverride chicken = new MobOverride(EntityChicken.class, CustomChicken.class, new ThrownEggHandler());
-        chicken.setReasonsNotToLog(CreatureSpawnEvent.SpawnReason.MOUNT);
-
-        MobOverride skeleton = new MobOverride(EntitySkeleton.class, CustomSkeleton.class);
-        skeleton.setReasonsNotToLog(CreatureSpawnEvent.SpawnReason.JOCKEY);
-
         mobOverrides = ImmutableList.of(
-                chicken,
-                new MobOverride(new CreeperDeathHandler()),
-                new MobOverride(new RabbitSpawnHandler()),
-                new MobOverride(EntitySheep.class, CustomSheep.class),
-                skeleton,
-                new MobOverride(EntitySpider.class, CustomSpider.class, new SpiderDeathHandler()),
-                new MobOverride(EntityZombie.class, CustomZombie.class, new ZombieSeigeHandler())
+                new MobOverride()
+                        .withOverridingClasses(EntityChicken.class, CustomChicken.class)
+                        .withListeners(new ThrownEggHandler())
+                        .withSupressedInvalidSpawnReasons(CreatureSpawnEvent.SpawnReason.MOUNT),
+                new MobOverride()
+                        .withOverridingClasses(EntitySkeleton.class, CustomSkeleton.class)
+                        .withSupressedInvalidSpawnReasons(CreatureSpawnEvent.SpawnReason.JOCKEY),
+                new MobOverride()
+                        .withListeners(new CreeperDeathHandler()),
+                new MobOverride()
+                        .withListeners(new RabbitSpawnHandler()),
+                new MobOverride()
+                        .withOverridingClasses(EntitySheep.class, CustomSheep.class),
+                new MobOverride()
+                        .withOverridingClasses(EntitySpider.class, CustomSpider.class)
+                        .withListeners(new SpiderDeathHandler()),
+                new MobOverride()
+                        .withOverridingClasses(EntityZombie.class, CustomZombie.class)
+                        .withListeners(new ZombieSeigeHandler())
         );
     }
 

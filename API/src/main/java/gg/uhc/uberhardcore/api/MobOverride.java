@@ -1,65 +1,34 @@
 package gg.uhc.uberhardcore.api;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 public class MobOverride {
 
-    protected final Class nmsClass;
-    protected final Class overrideClass;
-    protected final List<Listener> listeners;
-    protected Set<CreatureSpawnEvent.SpawnReason> reasonsNotToLog = ImmutableSet.of();
+    protected Class nmsClass = null;
+    protected Class overrideClass = null;
+    protected List<Listener> listeners = ImmutableList.of();
+    protected Set<CreatureSpawnEvent.SpawnReason> suppressedInvalidSpawnReasons = ImmutableSet.of();
 
-    /**
-     * Create new override. If a NMS class is provided an override class must also be provided. An override class must
-     * be a subclass of the NMS class.
-     *
-     * @param nmsClass the NMS class that will be replaced
-     * @param overrideClass the class to override with
-     * @param listeners the listeners to register to help with the mobs
-     * @param <T> the NMS class
-     */
-    public <T> MobOverride(Class<T> nmsClass, Class<? extends T> overrideClass, List<Listener> listeners) {
-        if (nmsClass == null) {
-            Preconditions.checkArgument(overrideClass == null, "Cannot provide an override class if not providing an NMS class");
-        } else {
-            Preconditions.checkNotNull(overrideClass, "Must provide an overriding class if providing an NMS class");
-        }
-
+    public <T> MobOverride withOverridingClasses(Class<T> nmsClass, Class<? extends T> overrideClass) {
         this.nmsClass = nmsClass;
         this.overrideClass = overrideClass;
-        this.listeners = listeners;
+        return this;
     }
 
-    /**
-     * @see MobOverride#MobOverride(Class, Class, List)
-     */
-    public <T> MobOverride(Class<T> nmsClass, Class<? extends T> overrideClass, Listener... listeners) {
-        this(nmsClass, overrideClass, Arrays.asList(listeners));
+    public MobOverride withListeners(Listener... listeners) {
+        this.listeners = ImmutableList.copyOf(listeners);
+        return this;
     }
 
-    /**
-     * Create a mob override with listeners only, no overrides
-     *
-     * @see MobOverride#MobOverride(Class, Class, List)
-     */
-    public MobOverride(Listener... listeners) {
-        this(null, null, listeners);
-    }
-
-    /**
-     * Create a mob override with listeners only, no overrides
-     *
-     * @see MobOverride#MobOverride(Class, Class, List)
-     */
-    public MobOverride(List<Listener> listeners) {
-        this(null, null, listeners);
+    public MobOverride withSupressedInvalidSpawnReasons(CreatureSpawnEvent.SpawnReason... reasons) {
+        this.suppressedInvalidSpawnReasons = ImmutableSet.copyOf(reasons);
+        return this;
     }
 
     /**
@@ -93,14 +62,7 @@ public class MobOverride {
     /**
      * @return spawn reasons not to log if they have invalid spawns, cancel silently.
      */
-    public Set<CreatureSpawnEvent.SpawnReason> getReasonsNotToLog() {
-        return reasonsNotToLog;
-    }
-
-    /**
-     * @param reasons spawn reasons not to log if they have invalid spawns, cancel silently.
-     */
-    public void setReasonsNotToLog(CreatureSpawnEvent.SpawnReason... reasons) {
-        this.reasonsNotToLog = ImmutableSet.copyOf(reasons);
+    public Set<CreatureSpawnEvent.SpawnReason> getSuppressedInvalidSpawnReasons() {
+        return suppressedInvalidSpawnReasons;
     }
 }
