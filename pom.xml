@@ -24,6 +24,11 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>uhcgg-ext-snapshots</id>
+            <name>uhc.gg-ext-snapshots</name>
+            <url>http://repo.uhc.gg/ext-snapshot-local</url>
+        </repository>
     </repositories>
 
     <build>
