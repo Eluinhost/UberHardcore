@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.NewSpawnsModifier
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.NewSpawnsModifier
  *
  * The MIT License (MIT)
  *

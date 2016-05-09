@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.sheep.CustomSheepControllerMove
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.sheep.CustomSheepControllerMove
  *
  * The MIT License (MIT)
  *

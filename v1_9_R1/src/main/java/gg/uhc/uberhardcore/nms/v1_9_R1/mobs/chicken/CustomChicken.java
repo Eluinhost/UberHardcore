@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.chicken.CustomChicken
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.chicken.CustomChicken
  *
  * The MIT License (MIT)
  *

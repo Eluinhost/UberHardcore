@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.creeper.ExplosionTask
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.creeper.ExplosionTask
  *
  * The MIT License (MIT)
  *

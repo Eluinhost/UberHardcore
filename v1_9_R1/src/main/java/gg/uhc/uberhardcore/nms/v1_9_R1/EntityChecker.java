@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.EntityChecker
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.EntityChecker
  *
  * The MIT License (MIT)
  *

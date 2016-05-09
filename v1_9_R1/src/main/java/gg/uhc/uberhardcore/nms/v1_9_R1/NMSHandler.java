@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.NMSHandler
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.NMSHandler
  *
  * The MIT License (MIT)
  *

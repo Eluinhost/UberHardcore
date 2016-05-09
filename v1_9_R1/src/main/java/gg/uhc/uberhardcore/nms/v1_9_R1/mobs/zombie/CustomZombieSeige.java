@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.zombie.CustomZombieSeige
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.zombie.CustomZombieSeige
  *
  * The MIT License (MIT)
  *

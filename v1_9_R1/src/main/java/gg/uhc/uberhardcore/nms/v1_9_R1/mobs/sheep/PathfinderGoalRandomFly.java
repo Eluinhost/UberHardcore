@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.sheep.PathfinderGoalRandomFly
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.sheep.PathfinderGoalRandomFly
  *
  * The MIT License (MIT)
  *

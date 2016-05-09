@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.skeleton.CustomSkeleton
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.skeleton.CustomSkeleton
  *
  * The MIT License (MIT)
  *

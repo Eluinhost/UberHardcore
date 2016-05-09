@@ -1,6 +1,6 @@
 /*
  * Project: UberHardcore
- * Class: gg.uhc.uberhardcore.nms.v1_8_R3.mobs.rabbit.RabbitSpawnHandler
+ * Class: gg.uhc.uberhardcore.nms.v1_9_R1.mobs.rabbit.RabbitSpawnHandler
  *
  * The MIT License (MIT)
  *
