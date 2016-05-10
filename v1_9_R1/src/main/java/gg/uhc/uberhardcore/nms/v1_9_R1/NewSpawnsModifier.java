@@ -43,7 +43,7 @@ public class NewSpawnsModifier implements gg.uhc.uberhardcore.api.NewSpawnsModif
         skipped = Lists.newArrayList();
 
         outer:
-        for (BiomeBase biome : BiomeBase.getBiomes()) {
+        for (BiomeBase biome : BiomeBase.i) {
             if (biome == null) continue;
 
             List<BiomeBase.BiomeMeta> spawns = biome.getMobs(EnumCreatureType.MONSTER);
@@ -61,7 +61,7 @@ public class NewSpawnsModifier implements gg.uhc.uberhardcore.api.NewSpawnsModif
     }
 
     public void desetup() {
-        for (BiomeBase biome : BiomeBase.getBiomes()) {
+        for (BiomeBase biome : BiomeBase.i) {
             if (biome == null || skipped.contains(biome)) continue;
 
             Iterator<BiomeBase.BiomeMeta> iterator = biome.getMobs(EnumCreatureType.MONSTER).iterator();

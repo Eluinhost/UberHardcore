@@ -41,6 +41,7 @@ public class PathfinderGoalRandomFly extends PathfinderGoal {
         this.a(1);
     }
 
+    @Override
     public boolean a() {
         ControllerMove controllermove = this.sheep.getControllerMove();
         if(!controllermove.a()) {
@@ -54,12 +55,14 @@ public class PathfinderGoalRandomFly extends PathfinderGoal {
         }
     }
 
+    @Override
     public boolean b() {
         return false;
     }
 
+    @Override
     public void c() {
-        Random random = this.sheep.bc();
+        Random random = this.sheep.getRandom();
         double d0 = this.sheep.locX + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
         double d1 = this.sheep.locY + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
         double d2 = this.sheep.locZ + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);

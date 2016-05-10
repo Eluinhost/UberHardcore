@@ -27,7 +27,6 @@
 
 package gg.uhc.uberhardcore.nms.v1_9_R1.mobs.spider;
 
-import net.minecraft.server.v1_9_R1.Entity;
 import net.minecraft.server.v1_9_R1.EntityLiving;
 import net.minecraft.server.v1_9_R1.EntitySpider;
 import net.minecraft.server.v1_9_R1.PathfinderGoalMeleeAttack;
@@ -35,13 +34,13 @@ import net.minecraft.server.v1_9_R1.PathfinderGoalMeleeAttack;
 // copied from EntitySpider.PathfinderGoalSpiderMeleeAttack but without daylight dependencies
 public class PathfinderGoalSpiderMeleeAttackHostile extends PathfinderGoalMeleeAttack {
 
-    public PathfinderGoalSpiderMeleeAttackHostile(EntitySpider entityspider, Class<? extends Entity> oclass) {
-        super(entityspider, oclass, 1.0D, true);
+    public PathfinderGoalSpiderMeleeAttackHostile(EntitySpider entityspider) {
+        super(entityspider, 1.0D, true);
     }
 
 //    public boolean b() {
-//        float f = this.b.c(1.0F);
-//        if(f >= 0.5F && this.b.bc().nextInt(100) == 0) {
+//        float f = this.b.e(1.0F);
+//        if(f >= 0.5F && this.b.getRandom().nextInt(100) == 0) {
 //            this.b.setGoalTarget((EntityLiving)null);
 //            return false;
 //        } else {

@@ -35,28 +35,29 @@ import net.minecraft.server.v1_9_R1.MathHelper;
 public class CustomSheepControllerMove extends ControllerMove {
 
     private CustomSheep sheep;
-    private int h;
+    private int j;
 
     public CustomSheepControllerMove(CustomSheep sheep) {
         super(sheep);
         this.sheep = sheep;
     }
 
+    @Override
     public void c() {
-        if(this.f) {
+        if(this.h == Operation.MOVE_TO) {
             double d0 = this.b - this.sheep.locX;
             double d1 = this.c - this.sheep.locY;
             double d2 = this.d - this.sheep.locZ;
             double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-            if(this.h-- <= 0) {
-                this.h += this.sheep.bc().nextInt(5) + 2;
+            if(this.j-- <= 0) {
+                this.j += this.sheep.getRandom().nextInt(5) + 2;
                 d3 = (double) MathHelper.sqrt(d3);
                 if(this.b(this.b, this.c, this.d, d3)) {
                     this.sheep.motX += d0 / d3 * 0.1D;
                     this.sheep.motY += d1 / d3 * 0.1D;
                     this.sheep.motZ += d2 / d3 * 0.1D;
                 } else {
-                    this.f = false;
+                    this.h = Operation.WAIT;
                 }
             }
         }

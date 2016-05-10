@@ -91,7 +91,7 @@ public class SpiderDeathHandler implements Listener {
         // make sure it goes up
         block.motY = Math.min(block.motY, 0.25D);
         // isAirborne
-        block.ai = true;
+        block.onGround = false;
 
         entity.world.addEntity(block, CreatureSpawnEvent.SpawnReason.CUSTOM);
     }

@@ -33,6 +33,7 @@ import net.minecraft.server.v1_9_R1.*;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class CustomZombie extends EntityZombie {
@@ -58,7 +59,7 @@ public class CustomZombie extends EntityZombie {
         this.goalSelector.a(1, new PathfinderGoalLeapAtTarget(this, .4F));
 
         // agro on players with slightly faster move speed, always keep target
-        this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, EntityPlayer.class, 1.2D, true));
+        this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, 1.2D, true));
         this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityPlayer.class, false));
 
         // buff base damage and health
@@ -68,31 +69,29 @@ public class CustomZombie extends EntityZombie {
 
     // copy/pasted from EntityZombie
     // stops EntityZombie being created on villager conversion
+    // Using WrappedGroupDataZombie for relevent area
     public void a(EntityLiving entityliving) {
-        super.a(entityliving);
+        super.b(entityliving);
         if((this.world.getDifficulty() == EnumDifficulty.NORMAL || this.world.getDifficulty() == EnumDifficulty.HARD) && entityliving instanceof EntityVillager) {
             if(this.world.getDifficulty() != EnumDifficulty.HARD && this.random.nextBoolean()) {
                 return;
             }
 
-            EntityInsentient entityinsentient = (EntityInsentient)entityliving;
+            EntityVillager entityvillager = (EntityVillager)entityliving;
             EntityZombie entityzombie = new CustomZombie(this.world); // EntityZombie -> CustomZombie
-            entityzombie.m(entityliving);
+            entityzombie.u(entityliving);
             this.world.kill(entityliving);
-            entityzombie.prepare(this.world.E(new BlockPosition(entityzombie)), (GroupDataEntity) null);
-            entityzombie.setVillager(true);
-            if(entityliving.isBaby()) {
-                entityzombie.setBaby(true);
-            }
-
-            entityzombie.k(entityinsentient.ce());
-            if(entityinsentient.hasCustomName()) {
-                entityzombie.setCustomName(entityinsentient.getCustomName());
-                entityzombie.setCustomNameVisible(entityinsentient.getCustomNameVisible());
+            entityzombie.prepare(this.world.D(new BlockPosition(entityzombie)), new WrappedGroupDataZombie(false, true).getHandle());
+            entityzombie.setVillagerType(entityvillager.getProfession());
+            entityzombie.setBaby(entityliving.isBaby());
+            entityzombie.m(entityvillager.cR());
+            if(entityvillager.hasCustomName()) {
+                entityzombie.setCustomName(entityvillager.getCustomName());
+                entityzombie.setCustomNameVisible(entityvillager.getCustomNameVisible());
             }
 
             this.world.addEntity(entityzombie, CreatureSpawnEvent.SpawnReason.INFECTION);
-            this.world.a((EntityHuman) null, 1016, new BlockPosition((int) this.locX, (int) this.locY, (int) this.locZ), 0);
+            this.world.a((EntityHuman)null, 1026, new BlockPosition((int)this.locX, (int)this.locY, (int)this.locZ), 0);
         }
     }
 
@@ -104,7 +103,7 @@ public class CustomZombie extends EntityZombie {
                 entityliving = (EntityLiving)damagesource.getEntity();
             }
 
-            if(entityliving != null && this.world.getDifficulty() == EnumDifficulty.HARD && (double)this.random.nextFloat() < this.getAttributeInstance(a).getValue()) {
+            if(entityliving != null && this.world.getDifficulty() == EnumDifficulty.HARD && (double)this.random.nextFloat() < this.getAttributeInstance(a).getValue() && this.world.getGameRules().getBoolean("doMobSpawning")) {
                 int i = MathHelper.floor(this.locX);
                 int j = MathHelper.floor(this.locY);
                 int k = MathHelper.floor(this.locZ);
@@ -114,12 +113,12 @@ public class CustomZombie extends EntityZombie {
                     int i1 = i + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
                     int j1 = j + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
                     int k1 = k + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
-                    if(World.a(this.world, new BlockPosition(i1, j1 - 1, k1)) && this.world.getLightLevel(new BlockPosition(i1, j1, k1)) < 10) {
+                    if(this.world.getType(new BlockPosition(i1, j1 - 1, k1)).q() && this.world.getLightLevel(new BlockPosition(i1, j1, k1)) < 10) {
                         entityzombie.setPosition((double)i1, (double)j1, (double)k1);
                         if(!this.world.isPlayerNearby((double)i1, (double)j1, (double)k1, 7.0D) && this.world.a(entityzombie.getBoundingBox(), entityzombie) && this.world.getCubes(entityzombie, entityzombie.getBoundingBox()).isEmpty() && !this.world.containsLiquid(entityzombie.getBoundingBox())) {
                             this.world.addEntity(entityzombie, CreatureSpawnEvent.SpawnReason.REINFORCEMENTS);
                             entityzombie.setGoalTarget(entityliving, EntityTargetEvent.TargetReason.REINFORCEMENT_TARGET, true);
-                            entityzombie.prepare(this.world.E(new BlockPosition(entityzombie)), (GroupDataEntity)null);
+                            entityzombie.prepare(this.world.D(new BlockPosition(entityzombie)), (GroupDataEntity)null);
                             this.getAttributeInstance(a).b(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
                             entityzombie.getAttributeInstance(a).b(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
                             break;
@@ -136,25 +135,34 @@ public class CustomZombie extends EntityZombie {
 
     // give chance for chicken jockey with correct chicken if zombie is a baby
     // taken from EntityZombie and changed to CustomChicken
+    // Using WrappedGroupDataZombie to handle the group data
     @Override
     public GroupDataEntity prepare(DifficultyDamageScaler difficultydamagescaler, GroupDataEntity groupdataentity) {
         GroupDataEntity object = super.prepare(difficultydamagescaler, groupdataentity);
 
-        if (this.isBaby()) {
-            if ((double) this.world.random.nextFloat() < 0.05D) {
-                List entitychicken1 = this.world.a(CustomChicken.class, this.getBoundingBox().grow(5.0D, 3.0D, 5.0D), IEntitySelector.b);
-                if (!entitychicken1.isEmpty()) {
-                    CustomChicken entitychicken = (CustomChicken) entitychicken1.get(0);
-                    entitychicken.l(true);
-                    this.mount(entitychicken);
+        if(WrappedGroupDataZombie.isInstanceOf(object)) {
+            WrappedGroupDataZombie data = new WrappedGroupDataZombie(object);
+            if(data.getB()) {
+                this.setVillagerType(this.random.nextInt(5));
+            }
+
+            if(data.getA()) {
+                this.setBaby(true);
+                if((double)this.world.random.nextFloat() < 0.05D) {
+                    List entitychicken1 = this.world.a(CustomChicken.class, this.getBoundingBox().grow(5.0D, 3.0D, 5.0D), IEntitySelector.b);
+                    if(!entitychicken1.isEmpty()) {
+                        CustomChicken entitychicken = (CustomChicken)entitychicken1.get(0);
+                        entitychicken.o(true);
+                        this.startRiding(entitychicken);
+                    }
+                } else if((double)this.world.random.nextFloat() < 0.05D) {
+                    EntityChicken entitychicken11 = new CustomChicken(this.world);
+                    entitychicken11.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, 0.0F);
+                    entitychicken11.prepare(difficultydamagescaler, null);
+                    entitychicken11.o(true);
+                    this.world.addEntity(entitychicken11, CreatureSpawnEvent.SpawnReason.MOUNT);
+                    this.startRiding(entitychicken11);
                 }
-            } else if ((double) this.world.random.nextFloat() < 0.05D) {
-                CustomChicken entitychicken11 = new CustomChicken(this.world);
-                entitychicken11.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, 0.0F);
-                entitychicken11.prepare(difficultydamagescaler, (GroupDataEntity) null);
-                entitychicken11.l(true);
-                this.world.addEntity(entitychicken11, CreatureSpawnEvent.SpawnReason.MOUNT);
-                this.mount(entitychicken11);
             }
         }
 

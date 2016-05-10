@@ -55,7 +55,7 @@ public class CustomSpider extends EntitySpider {
         ai.removeAIGoals(this.targetSelector, spiderTargetClass);
 
         // replace with non-daylight dependant attacks/targetting on players only
-        this.goalSelector.a(4, new PathfinderGoalSpiderMeleeAttackHostile(this, EntityPlayer.class));
+        this.goalSelector.a(4, new PathfinderGoalSpiderMeleeAttackHostile(this));
         this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityPlayer.class, true));
 
         // give a movement speed buff
@@ -72,7 +72,7 @@ public class CustomSpider extends EntitySpider {
             i.setPositionRotation(this.locX, this.locY, this.locZ, this.yaw, 0.0F);
             i.prepare(difficultydamagescaler, (GroupDataEntity)null);
             this.world.addEntity(i, CreatureSpawnEvent.SpawnReason.JOCKEY);
-            i.mount(this);
+            i.startRiding(this);
         }
 
         // snip the reset of the method to avoid it running twice, this method is just here to make sure there is a chance

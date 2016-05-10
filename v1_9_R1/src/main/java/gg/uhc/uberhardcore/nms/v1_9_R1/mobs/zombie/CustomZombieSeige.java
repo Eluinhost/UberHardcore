@@ -50,11 +50,10 @@ public class CustomZombieSeige extends VillageSiege {
 
     public CustomZombieSeige(World world) {
         super(world);
-        this.a = world;
     }
 
     public void a() {
-        if(this.a.w()) {
+        if(this.a.B()) {
             this.c = 0;
         } else if(this.c != 2) {
             if(this.c == 0) {
@@ -114,7 +113,7 @@ public class CustomZombieSeige extends VillageSiege {
                                 entityhuman = (EntityHuman)iterator.next();
                             } while(entityhuman.isSpectator());
 
-                            this.f = this.a.ae().getClosestVillage(new BlockPosition(entityhuman), 1);
+                            this.f = this.a.ai().getClosestVillage(new BlockPosition(entityhuman), 1);
                         } while(this.f == null);
                     } while(this.f.c() < 10);
                 } while(this.f.d() < 20);
@@ -125,12 +124,12 @@ public class CustomZombieSeige extends VillageSiege {
             boolean flag = false;
 
             for(int i = 0; i < 10; ++i) {
-                float vec3d = this.a.random.nextFloat() * 3.1415927F * 2.0F;
+                float vec3d = this.a.random.nextFloat() * 6.2831855F;
                 this.g = blockposition.getX() + (int)((double)(MathHelper.cos(vec3d) * f) * 0.9D);
                 this.h = blockposition.getY();
                 this.i = blockposition.getZ() + (int)((double)(MathHelper.sin(vec3d) * f) * 0.9D);
                 flag = false;
-                Iterator iterator1 = this.a.ae().getVillages().iterator();
+                Iterator iterator1 = this.a.ai().getVillages().iterator();
 
                 while(iterator1.hasNext()) {
                     Village village = (Village)iterator1.next();
@@ -162,17 +161,17 @@ public class CustomZombieSeige extends VillageSiege {
         if(vec3d == null) {
             return false;
         } else {
-            EntityZombie entityzombie;
+            CustomZombie entityzombie;
             try {
                 entityzombie = new CustomZombie(this.a);
-                entityzombie.prepare(this.a.E(new BlockPosition(entityzombie)), (GroupDataEntity)null);
-                entityzombie.setVillager(false);
+                entityzombie.prepare(this.a.D(new BlockPosition(entityzombie)), (GroupDataEntity)null);
+                entityzombie.clearVillagerType();
             } catch (Exception var4) {
                 var4.printStackTrace();
                 return false;
             }
 
-            entityzombie.setPositionRotation(vec3d.a, vec3d.b, vec3d.c, this.a.random.nextFloat() * 360.0F, 0.0F);
+            entityzombie.setPositionRotation(vec3d.x, vec3d.y, vec3d.z, this.a.random.nextFloat() * 360.0F, 0.0F);
             this.a.addEntity(entityzombie, CreatureSpawnEvent.SpawnReason.VILLAGE_INVASION);
             BlockPosition blockposition = this.f.a();
             entityzombie.a(blockposition, this.f.b());

@@ -62,7 +62,7 @@ public class CustomChicken extends EntityChicken implements IRangedEntity {
         float f1 = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         egg.shoot(d1, d2 + (double) f1, d3, 1.6F, 12.0F);
         // change bow noise to plop noise
-        this.makeSound("mob.chicken.plop", 1.0F, 1.0F / (this.bc().nextFloat() * 0.4F + 0.8F));
+        this.a(SoundEffects.aa, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(egg);
     }
 }

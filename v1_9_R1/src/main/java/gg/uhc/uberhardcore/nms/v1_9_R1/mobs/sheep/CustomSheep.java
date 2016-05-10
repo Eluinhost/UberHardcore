@@ -68,14 +68,15 @@ public class CustomSheep extends EntitySheep {
     }
 
     // move entity with heading, taken from EntityFlying
+    @Override
     public void g(float var1, float var2) {
-        if(this.V()) {
+        if(this.isInWater()) {
             this.a(var1, var2, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.800000011920929D;
             this.motY *= 0.800000011920929D;
             this.motZ *= 0.800000011920929D;
-        } else if(this.ab()) {
+        } else if(this.an()) {
             this.a(var1, var2, 0.02F);
             this.move(this.motX, this.motY, this.motZ);
             this.motX *= 0.5D;
@@ -100,7 +101,7 @@ public class CustomSheep extends EntitySheep {
             this.motZ *= (double)var3;
         }
 
-        this.aA = this.aB;
+        this.aE = this.aF;
         double var5 = this.locX - this.lastX;
         double var7 = this.locZ - this.lastZ;
         float var9 = MathHelper.sqrt(var5 * var5 + var7 * var7) * 4.0F;
@@ -108,19 +109,22 @@ public class CustomSheep extends EntitySheep {
             var9 = 1.0F;
         }
 
-        this.aB += (var9 - this.aB) * 0.4F;
-        this.aC += this.aB;
+        this.aF += (var9 - this.aF) * 0.4F;
+        this.aG += this.aF;
     }
 
 
     // is on ladder, from EntityFlying
-    public boolean k_() {
+    @Override
+    public boolean n_() {
         return false;
     }
 
     // fall, taken from EntityFlying
+    @Override
     public void e(float var1, float var2) {}
 
     // update fall state, taken from EnitityFlying
-    protected void a(double var1, boolean var3, Block var4, BlockPosition var5) {}
+    @Override
+    protected void a(double var1, boolean var3, IBlockData var4, BlockPosition var5) {}
 }

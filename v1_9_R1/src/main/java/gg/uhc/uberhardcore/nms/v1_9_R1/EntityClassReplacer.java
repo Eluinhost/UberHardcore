@@ -105,11 +105,9 @@ public class EntityClassReplacer implements gg.uhc.uberhardcore.api.EntityClassR
         idToClassMapping = (Map<Integer, Class<? extends Entity>>) idToClassMappingField.get(null);
         stringToClassMapping = (Map<String, Class<? extends Entity>>) stringToClassMappingField.get(null);
 
-        BiomeBase[] biomes = BiomeBase.getBiomes();
-
         // create one big list for easy replacements
         spawnLists = Lists.newArrayList();
-        for (BiomeBase biome : biomes) {
+        for (BiomeBase biome : BiomeBase.i) {
             if (biome == null) continue;
 
             spawnLists.addAll(biome.getMobs(EnumCreatureType.CREATURE));
